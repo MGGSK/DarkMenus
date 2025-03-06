@@ -3,6 +3,10 @@ A Windhawk mod that makes all native windows menus use dark mode.
 
 ![image](https://github.com/user-attachments/assets/9177a19e-2de4-4715-866f-9d1e2387724b)
 
+## Dependencies
+##### [Windhwak](https://www.Windhawk.net)
+##### Windows build 18362
+
 ## Installation
 ### 1. From the official repository
 1. Open windhawk
