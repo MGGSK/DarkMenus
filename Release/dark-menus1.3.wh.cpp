@@ -28,8 +28,8 @@ Forces dark mode for all win32 menus to create a more consistent UI. Requires Wi
 ![After10](https://i.imgur.com/MUqVAcG.png)
 ![Menubar](https://raw.githubusercontent.com/MGGSK/DarkMenus/main/Images/menubar.png)
 
-##### The code for dark menubars is based on the [win32-darkmode](https://github.com/adzm/win32-darkmode) repository.
-##### Create a [issue](https://github.com/MGGSK/DarkMenus/issues) or [discussion](https://github.com/MGGSK/DarkMenus/discussions) to send feedback.
+#### The code for dark menubars is based on the [win32-darkmode](https://github.com/adzm/win32-darkmode) repository.
+#### Create a [issue](https://github.com/MGGSK/DarkMenus/issues) or [discussion](https://github.com/MGGSK/DarkMenus/discussions) to send feedback.
 */
 // ==/WindhawkModReadme==
 
