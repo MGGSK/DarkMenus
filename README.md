@@ -11,6 +11,7 @@ A Windhawk mod that makes all native windows menus use dark mode.
 ### 1. From the official repository
 1. Open windhawk
 2. Search for ["Dark mode context menus"](https://windhawk.net/mods/dark-menus)
+3. Click install
 
 ### 2. From this repository
 1. Download ["dark-menus.wh.cpp"](https://github.com/MGGSK/DarkMenus/blob/main/dark-menus.wh.cpp) from this repo
