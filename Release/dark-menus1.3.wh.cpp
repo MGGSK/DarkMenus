@@ -57,18 +57,12 @@ Forces dark mode for all win32 menus to create a more consistent UI. Requires Wi
 #include <windows.h>
 
 #include <windhawk_api.h>
-#include <windhawk_utils.h>
 
 const COLORREF crItemForeground = 0xFFFFFF;
 const COLORREF crItemDisabled = 0xAAAAAA;
 const HBRUSH brBackground = CreateSolidBrush(0x262626);
 const HBRUSH brItemBackgroundHot = CreateSolidBrush(0x353535);
 const HBRUSH brItemBackgroundSelected = CreateSolidBrush(0x454545);
-
-//Code taken from https://github.com/adzm/win32-darkmode/blob/darkmenubar/win32-darkmode/UAHMenuBar.h and https://github.com/adzm/win32-darkmode/blob/darkmenubar/win32-darkmode/win32-darkmode.cpp
-//MIT license, see LICENSE
-//Copyright(c) 2021 adzm / Adam D. Walling
-#pragma region UAHMenuBar
 
 #define WM_UAHDRAWMENU         0x91
 #define WM_UAHDRAWMENUITEM     0x92
@@ -114,12 +108,16 @@ struct UAHDRAWMENUITEM
 
 HTHEME menuTheme = nullptr;
 
-//Processes messages related to UAH / custom menubar drawing.
+//Processes messages related to custom menubar drawing.
 //Returns true if handled, false to continue with normal processing
 bool CALLBACK UAHWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT* lpResult)
 {
     switch (uMsg)
     {
+    //Code based on https://github.com/adzm/win32-darkmode/blob/darkmenubar/win32-darkmode/win32-darkmode.cpp
+    //MIT license, see LICENSE
+    //Copyright(c) 2021 adzm / Adam D. Walling
+    #pragma region CodeBasedOnWin32DarkMode
     case WM_UAHDRAWMENU:
     {
         const auto* pUdm = (UAHMENU*)lParam;
@@ -193,11 +191,11 @@ bool CALLBACK UAHWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRE
         menuTheme = nullptr;
         return false;
     }
+    #pragma endregion
     default:
         return false;
     }
 }
-#pragma endregion
 
 using RtlGetNtVersionNumbers_T = void (WINAPI *)(LPDWORD, LPDWORD, LPDWORD);
 RtlGetNtVersionNumbers_T RtlGetNtVersionNumbers;
@@ -224,13 +222,13 @@ enum AppMode
 };
 
 using FlushMenuThemes_T = void (WINAPI *)();
-using SetPreferredAppMode_T = HRESULT (WINAPI *)(AppMode);
+using SetPreferredAppMode_T = AppMode (WINAPI *)(AppMode);
 
 FlushMenuThemes_T FlushMenuThemes;
 SetPreferredAppMode_T SetPreferredAppMode;
 
 //Applies the theme to all menus.
-HRESULT ApplyTheme(const AppMode inputTheme = Max)
+void ApplyTheme(const AppMode inputTheme = Max)
 {
     AppMode theme = inputTheme;
 
@@ -251,7 +249,7 @@ HRESULT ApplyTheme(const AppMode inputTheme = Max)
 
     //Apply the theme
     FlushMenuThemes();
-    return SetPreferredAppMode(theme);
+    SetPreferredAppMode(theme);
 }
 
 //Checks if the windows build is 18362 or later.
@@ -297,8 +295,8 @@ BOOL Wh_ModInit() {
     SetPreferredAppMode = reinterpret_cast<SetPreferredAppMode_T>(pSetPreferredAppMode);
     FlushMenuThemes = reinterpret_cast<FlushMenuThemes_T>(pFlushMenuThemes);
 
-    HRESULT hResult = ApplyTheme();
-    return SUCCEEDED(hResult);
+    ApplyTheme();
+    return TRUE;
 }
 
 //Restores the default theme.
