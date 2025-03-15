@@ -106,6 +106,11 @@ struct UAHDRAWMENUITEM
 	UAHMENUITEM umi;
 };
 
+//Code based on https://github.com/adzm/win32-darkmode/blob/darkmenubar/win32-darkmode/win32-darkmode.cpp
+//MIT license, see LICENSE
+//Copyright(c) 2021 adzm / Adam D. Walling
+#pragma region CodeBasedOnWin32DarkMode
+
 HTHEME menuTheme = nullptr;
 
 //Processes messages related to custom menubar drawing.
@@ -114,10 +119,6 @@ bool CALLBACK UAHWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRE
 {
     switch (uMsg)
     {
-    //Code based on https://github.com/adzm/win32-darkmode/blob/darkmenubar/win32-darkmode/win32-darkmode.cpp
-    //MIT license, see LICENSE
-    //Copyright(c) 2021 adzm / Adam D. Walling
-    #pragma region CodeBasedOnWin32DarkMode
     case WM_UAHDRAWMENU:
     {
         const auto* pUdm = (UAHMENU*)lParam;
@@ -191,11 +192,11 @@ bool CALLBACK UAHWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRE
         menuTheme = nullptr;
         return false;
     }
-    #pragma endregion
     default:
         return false;
     }
 }
+#pragma endregion
 
 using RtlGetNtVersionNumbers_T = void (WINAPI *)(LPDWORD, LPDWORD, LPDWORD);
 RtlGetNtVersionNumbers_T RtlGetNtVersionNumbers;
