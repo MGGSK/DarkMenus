@@ -28,8 +28,7 @@ Forces dark mode for all win32 menus to create a more consistent UI. Requires Wi
 ![After10](https://i.imgur.com/MUqVAcG.png)
 ![Menubar](https://raw.githubusercontent.com/MGGSK/DarkMenus/main/Images/menubar.png)
 
-#### The code for dark menubars is based on the [win32-darkmode](https://github.com/adzm/win32-darkmode) repository.
-#### Create a [issue](https://github.com/MGGSK/DarkMenus/issues) or [discussion](https://github.com/MGGSK/DarkMenus/discussions) to send feedback.
+The code for dark menubars is based on the [win32-darkmode](https://github.com/adzm/win32-darkmode) repository. Create a [issue](https://github.com/MGGSK/DarkMenus/issues) or [discussion](https://github.com/MGGSK/DarkMenus/discussions) to send feedback.
 */
 // ==/WindhawkModReadme==
 
@@ -41,14 +40,12 @@ Forces dark mode for all win32 menus to create a more consistent UI. Requires Wi
   $options:
   - ForceDark: Always
   - AllowDark: Only when Windows is in dark mode
-  - ForceLight: Never
 
   $name:de-DE: Wann soll der Dunkle Modus aktiviert sein?
   $description:de-DE: Setzen sie auf "Systemeinstellung verwenden" wenn sie oft zwischen den Dunklen und Hellen Modus wechseln oder ein Program wie Auto Dark Mode verwenden.
   $options:de-DE:
   - ForceDark: Immer
   - AllowDark: Systemeinstellung verwenden
-  - ForceLight: Nie
 */
 // ==/WindhawkModSettings==
 
@@ -185,6 +182,15 @@ bool CALLBACK UAHWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRE
         DrawThemeTextEx(menuTheme, pUDMI->um.hdc, MENU_BARITEM, MBI_NORMAL, menuString, mii.cch, dwFlags, &pUDMI->dis.rcItem, &opts);
 
         return true;
+    }
+    case WM_NCCALCSIZE: //White line fix
+    {
+        if(wParam == TRUE)
+        {
+            auto* nccsp = (NCCALCSIZE_PARAMS*) lParam;
+            nccsp->rgrc[0].top -= 1;
+        }
+        return false;
     }
     case WM_THEMECHANGED:
     {
