@@ -24,8 +24,8 @@ Steps to reproduce the behavior:
 <!--If applicable, add screenshots to help explain your problem.-->
 
 **Device info:**
- - Windows build: <!--[e.g. 26100]-->
- - Mod version: <!--[e.g. 1.2]-->
+ - Windows build: <!--[e.g. 26200]-->
+ - Mod version: <!--[e.g. 1.4]-->
 
 **Additional context**
 <!--Add any other context about the problem here.-->
